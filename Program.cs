@@ -1,6 +1,9 @@
 ﻿// See https://aka.ms/new-console-template for more information
 string playerName;
 Random random = new Random();
+int attempts = 0;
+int hightScore = 0;
+
 
 StartGame();
 
@@ -54,17 +57,18 @@ void Play(int guessNumber)
             throw new Exception("Enter a number between 1 and 10");
 
         if(int.Parse(playerNumber) == guessNumber){
-            Console.WriteLine($"You Won the number is {guessNumber}");
             PlayAgain();
         }
         else if(int.Parse(playerNumber) < guessNumber)
         {
             Console.WriteLine("The number is higher");
+            attempts++;
             Play(guessNumber);
         }
         else
         {
             Console.WriteLine("The number is lower");
+            attempts++;
             Play(guessNumber);
         }
     }
@@ -82,6 +86,16 @@ void DontPlay()
 
 void PlayAgain()
 {
+    Console.WriteLine("You Won!!");
+    attempts++;
+    if(hightScore == 0 || attempts < hightScore)
+    {
+        hightScore = attempts;
+    }
+
+    Console.WriteLine($"Attempts: {attempts} Score: {hightScore}");
+    attempts = 0;
+
     int guessNumber = random.Next(1,10);
     Console.WriteLine("Would you like to play again?");
     WantToPlay(guessNumber,true);
