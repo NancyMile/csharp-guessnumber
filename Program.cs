@@ -16,7 +16,7 @@ void WantToPlay(string? playerName)
      Console.WriteLine($"Hi {playerName} are you ready? (Enter Yes/No)");
     var wantToPlay = Console.ReadLine();
 
-    switch (wantToPlay?.ToLower())
+    switch (wantToPlay?.ToLower().Trim())
     {
         case "yes":
             Play();
@@ -38,5 +38,5 @@ void Play()
 
 void DontPlay()
 {
-    Console.WriteLine("Not Play");
+    Console.WriteLine("Stop Playing ..");
 }
