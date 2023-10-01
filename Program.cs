@@ -1,6 +1,6 @@
-﻿
-using System;
-// See https://aka.ms/new-console-template for more information
+﻿// See https://aka.ms/new-console-template for more information
+string playerName;
+Random random = new Random();
 
 StartGame();
 
@@ -8,17 +8,22 @@ void StartGame()
 {
    Console.WriteLine("Guess the number!");
    Console.WriteLine("What is your name?");
-   var playerName = Console.ReadLine();
+   playerName = Console.ReadLine();
 
-   Random random = new Random();
    int guessNumber = random.Next(1,10);
 
-   WantToPlay(playerName, guessNumber);
+   WantToPlay(guessNumber);
 }
 
-void WantToPlay(string? playerName, int guessNumber)
+void WantToPlay(int guessNumber, bool playAgain = false)
 {
-     Console.WriteLine($"Hi {playerName} are you ready? (Enter Yes/No)");
+    if(!playAgain)
+    {
+        Console.WriteLine($"Hi {playerName} are you ready? (Enter Yes/No)");
+    }else
+    {
+         Console.WriteLine("Are you ready? (Enter Yes/No)");
+    }
     var wantToPlay = Console.ReadLine();
 
     switch (wantToPlay?.ToLower().Trim())
@@ -31,7 +36,7 @@ void WantToPlay(string? playerName, int guessNumber)
             break;
         default:
             Console.WriteLine("Not a valid option, Please enter yes or not");
-            WantToPlay(playerName,guessNumber);
+            WantToPlay(guessNumber);
             break;
     }
 }
@@ -48,8 +53,10 @@ void Play(int guessNumber)
         if(int.Parse(playerNumber) < 1 || int.Parse(playerNumber) > 10)
             throw new Exception("Enter a number between 1 and 10");
 
-        if(int.Parse(playerNumber) == guessNumber)
+        if(int.Parse(playerNumber) == guessNumber){
             Console.WriteLine($"You Won the number is {guessNumber}");
+            PlayAgain();
+        }
         else if(int.Parse(playerNumber) < guessNumber)
         {
             Console.WriteLine("The number is higher");
@@ -71,4 +78,11 @@ void Play(int guessNumber)
 void DontPlay()
 {
     Console.WriteLine("Stop Playing ..");
+}
+
+void PlayAgain()
+{
+    int guessNumber = random.Next(1,10);
+    Console.WriteLine("Would you like to play again?");
+    WantToPlay(guessNumber,true);
 }
