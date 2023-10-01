@@ -88,15 +88,26 @@ void PlayAgain()
 {
     Console.WriteLine("You Won!!");
     attempts++;
+
     if(hightScore == 0 || attempts < hightScore)
     {
         hightScore = attempts;
     }
 
-    Console.WriteLine($"Attempts: {attempts} Score: {hightScore}");
+    Console.WriteLine($"Attempts: {attempts}");
+    ShowScore();
     attempts = 0;
 
     int guessNumber = random.Next(1,10);
     Console.WriteLine("Would you like to play again?");
     WantToPlay(guessNumber,true);
+}
+
+void ShowScore()
+{
+    if(hightScore == 0){
+        Console.WriteLine("There is no currently hight score");
+    }else{
+        Console.WriteLine($"Current hight score is {hightScore}");
+    }
 }
